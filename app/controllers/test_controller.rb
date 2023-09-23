@@ -24,7 +24,29 @@ class TestController < ApplicationController
     retrieval = RetrieveDb.new('9585df718d544538ab8ffc97733913ea').call()
     query = QueryDb.new('9585df718d544538ab8ffc97733913ea').call()
 
-    @has_more = retrieval['has_more']
+    @rows = query['results']
+    @cells = []
+
+    #data types I can handle
+    # Name Number Date Text Email Phone Checkbox Status Select Multi_Select URL
+
+    @rows.each do |row|
+      row['properties'].each_pair do |key,value|
+        cellval = ParseCell.new(value, value["type"]).call()
+        @cells.push(
+          {
+            name: key,
+            type: value["type"],
+            value: cellval,
+          }
+        )
+      end
+    end
+  end
+
+  def chart
+    retrieval = RetrieveDb.new('9585df718d544538ab8ffc97733913ea').call()
+    query = QueryDb.new('9585df718d544538ab8ffc97733913ea').call()
 
     @rows = query['results']
     @cells = []
@@ -34,21 +56,15 @@ class TestController < ApplicationController
 
     @rows.each do |row|
       row['properties'].each_pair do |key,value|
-        cellname = key
-        celltype = value["type"]
-
-        cellval = ParseCell.new(value, celltype).call()
-
+        cellval = ParseCell.new(value, value["type"]).call()
         @cells.push(
           {
-            name: cellname,
-            type: celltype,
+            name: key,
+            type: value["type"],
             value: cellval,
           }
         )
       end
-
-      
     end
   end
 
