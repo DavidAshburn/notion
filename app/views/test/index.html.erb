@@ -1,5 +1,28 @@
 <div>
-  <h1 class="text-4xl font-bold">Test#index</h1>
-  <p>Find me in app/views/test/index.html.erb</p>
-  <p><%= @db %></p>
+ 
+  <h2 class="text-4xl">Retrieve DB</h2>
+  <% @list.each do |item| %>
+    <div class="grid max-w-3xl my-4 border-2 shadow-lg border-stone-300">
+      <p class="bg-stone-100"><%= item[0] %></p>
+      <p class="bg-stone-200"><%=  item[1] %></p>
+    </div>
+  <% end %>
+
+  <h2 class="text-4xl">Query DB</h2>
+  <% @querylist.each do |item| %>
+    <div class="grid max-w-3xl my-4 border-2 shadow-lg border-sky-300">
+      <p class="bg-sky-100"><%= item[0] %></p>
+      <p class="bg-sky-200"><%=  item[1] %></p>
+    </div>
+  <% end %>
+
+
+  <h2 class="text-4xl">Query Results</h2>
+  <% @resultlist.each do |item| %>
+    <div class="grid max-w-3xl my-4 border-2 border-green-300 shadow-lg">
+      <p class="bg-green-100"><%= item[0] %></p>
+      <p class="bg-green-200"><%=  item[1] %></p>
+    </div>
+  <% end %>
+
 </div>

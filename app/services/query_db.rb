@@ -1,16 +1,17 @@
 require 'net/http'
 
-class RetrieveDb
+class QueryDb
   def initialize(store_id)
     @db_id = store_id;    
   end
 
 
   def call
-    uri = URI("https://api.notion.com/v1/databases/#{@db_id}")
+    uri = URI("https://api.notion.com/v1/databases/#{@db_id}/query")
     
-    req = Net::HTTP::Get.new(uri)
+    req = Net::HTTP::Post.new(uri)
     req['Authorization'] = "Bearer #{ENV["NOTION"]}"
+    req['accept'] = "application/json"
     req['Notion-Version'] = "2022-06-28"
     req['Content-Type'] = "application/json"
 
@@ -22,5 +23,3 @@ class RetrieveDb
     JSON.parse(res.body)
   end
 end
-
-
