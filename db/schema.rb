@@ -16,6 +16,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_23_030142) do
 
   create_table "datastores", force: :cascade do |t|
     t.string "store_id"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
